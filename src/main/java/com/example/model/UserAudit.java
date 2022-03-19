@@ -15,6 +15,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,21 +29,25 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(value = { "created_at", "updated_at" }, allowGetters = true)
 public class UserAudit {
 
+	@JsonProperty("created_by")
 	@Column(name = "created_by", nullable = false, updatable = false)
 	@CreatedBy
 	private String createdBy;
 
+	@JsonProperty("updated_by")
 	@Column(name = "updated_by", nullable = false)
 	@LastModifiedBy
 	private String updatedBy;
 
 	// -----------------------------------------------------------------
 
+	@JsonProperty("created_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", nullable = false, updatable = false)
 	@CreatedDate
 	private Date createdAt;
 
+	@JsonProperty("updated_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_at", nullable = false)
 	@LastModifiedDate

@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,19 +31,24 @@ public class User extends UserAudit implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
+	@JsonProperty("user_id")
 	private long userId;
 
 	@Column(name = "first_name", nullable = false)
+	@JsonProperty("first_name")
 	private String firstName;
 
 	@Column(name = "last_name", nullable = false)
+	@JsonProperty("last_name")
 	private String lastName;
 
 	@Column(name = "email_id", nullable = false)
+	@JsonProperty("email_id")
 	private String emailId;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
+	@JsonProperty("items")
 	private List<Item> items;
 
 	public User(String firstName, String lastName, String emailId) {

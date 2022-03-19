@@ -7,8 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,15 +27,19 @@ public class Item implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "item_id", nullable = false)
+	@JsonProperty("item_id")
 	private long itemId;
 
 	@Column(name = "item_name", nullable = false)
+	@JsonProperty("item_name")
 	private String itemName;
 
 	@Column(name = "quantity", nullable = false)
+	@JsonProperty("quantity")
 	private int quantity = 1;
 
 	@Column(name = "price", nullable = false)
+	@JsonProperty("price")
 	private double price;
 
 	public Item(String itemName, int quantity, double price) {
