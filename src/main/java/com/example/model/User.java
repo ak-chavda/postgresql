@@ -6,25 +6,32 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "user_table")
-public class User extends UserAudit implements Serializable {
+//public class User extends UserAudit implements Serializable {
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,24 +49,23 @@ public class User extends UserAudit implements Serializable {
 	@JsonProperty("last_name")
 	private String lastName;
 
-	@Column(name = "email_id", nullable = false)
+	@Column(name = "email_id", unique = true)
 	@JsonProperty("email_id")
 	private String emailId;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	@JsonProperty("items")
 	private List<Item> items;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
+	@JsonProperty("address")
+	private Address address;
 
 	public User(String firstName, String lastName, String emailId) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailId = emailId;
 	}
-
-	@Override
-	public String toString() {
-		return "Employee [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId + "]";
-	}
-
 }

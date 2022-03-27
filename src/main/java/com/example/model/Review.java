@@ -11,10 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -30,35 +27,31 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "item")
-public class Item extends RepresentationModel<Item> implements Serializable {
+@Table(name = "review")
+public class Review implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
+	@JsonProperty("id")
 	private long id;
 
-	@Column(name = "item_name", nullable = false)
-	@JsonProperty("item_name")
-	private String itemName;
+	@Column(name = "rating", nullable = false)
+	@JsonProperty("rating")
+	private double rating;
 
-	@Column(name = "quantity", nullable = false)
-	@JsonProperty("quantity")
-	@Builder.Default
-	private int quantity = 1;
-
-	@Column(name = "price", nullable = false)
-	@JsonProperty("price")
-	private double price;
+	@Column(name = "comment")
+	@JsonProperty("comment")
+	private String comment;
 	
-	@OneToMany(mappedBy = "item")
-	private List<Review> reviews;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "item_id", referencedColumnName = "id")
+	private Item item;
 
-	public Item(String itemName, int quantity, double price) {
-		this.itemName = itemName;
-		this.quantity = quantity;
-		this.price = price;
+	public Review(Double rating, String comment) {
+		this.rating = rating;
+		this.comment = comment;
 	}
 }

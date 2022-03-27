@@ -1,0 +1,43 @@
+select * from review;
+select * from item;
+select * from user_table;
+select * from address;
+
+-- fetch users and theirs address
+select concat(u.first_name, ' ', u.last_name) as name, concat(a.address, '-', a.pincode) as address
+from user_table u inner join address a on u.address_id = a.id;
+
+-- fetch users email and their total no. of items and gross-total of all items as per the quantity
+select u.email_id as email_address, count(i.id) as no_of_items, sum(i.price * i.quantity) as gross_total
+from user_table u inner join item i on u.user_id = i.user_id group by u.email_id order by gross_total desc;
+
+-- fetch all items and its review
+select i.item_name, r.comment, r.rating from item i left join review r on i.id = r.item_id order by r.rating;
+
+-- fetch all the items and their users
+select u.email_id, i.item_name from user_table u right join item i on u.user_id = i.user_id;
+
+-- fetch particular user's particular item
+select i.* from user_table u inner join item i on u.user_id = 5 and i.id = 7;
+
+
+select * from student;
+select * from course;
+select * from student_course;
+
+-- fetch all students and their enrolled courses
+select s.name, c.title 
+	from student s 
+	left join student_course sc on s.id = sc.student_id
+	join course c on c.id = sc.course_id;
+
+-- another way
+-- aggregate courses in single cell
+	select s.name, string_agg(c.title, ', ')
+		from student s 
+		left join student_course sc on s.id = sc.student_id
+		left join course c on c.id = sc.course_id group by s.name;
+
+
+
+
