@@ -18,8 +18,8 @@ select i.item_name, r.comment, r.rating from item i left join review r on i.id =
 select u.email_id, i.item_name from user_table u right join item i on u.user_id = i.user_id;
 
 -- fetch particular user's particular item
-select i.* from user_table u inner join item i on u.user_id = 5 and i.id = 7;
-
+-- select i.* from user_table u inner join item i on i.user_id = 5 and i.id = 7;
+select * from item i where i.user_id = 5 and i.id = 7;
 
 select * from student;
 select * from course;

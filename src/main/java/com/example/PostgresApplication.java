@@ -68,12 +68,26 @@ public class PostgresApplication implements CommandLineRunner {
 		user.setAddress(new Address("234, xyz soc., ahmedabad, gujarat" , "111222"));
 		userRepository.save(user);
 
+		// insert duplicate record
+		user = new User("black", "adam", "blacka@email.com");
+		items = Arrays.asList(new Item("itemName", 2, 366), new Item("itemName2", 5, 350.88));
+		user.setItems(items);
+		user.setAddress(new Address("234, xyz soc., ahmedabad, gujarat" , "111222"));
+		userRepository.save(user);
+
 		user = new User("abc", "xyz", "abcd@email.com");
 		items = Arrays.asList(new Item("i1", 6, 606.45), new Item("i2", 2, 88));
 		user.setItems(items);
 		user.setAddress(new Address("111, pqr soc., indore, madhyapradesh" , "222333"));
 		userRepository.save(user);
 
+		user = new User("bruce", "wyne", "bruce@email.com");
+		items = Arrays.asList(new Item("i10", 1, 5556), new Item("i20", 1, 6665));
+		user.setItems(items);
+		user.setAddress(new Address("222, bjp soc., mumbai, maharashtra" , "345678"));
+		userRepository.save(user);
+		
+		// insert duplicate record
 		user = new User("bruce", "wyne", "bruce@email.com");
 		items = Arrays.asList(new Item("i10", 1, 5556), new Item("i20", 1, 6665));
 		user.setItems(items);
@@ -92,27 +106,52 @@ public class PostgresApplication implements CommandLineRunner {
 		
 		//------------------------------------------------------------------------------
 		
-		// create three courses
-		Course course1 = Course.builder().title("AI").credit(12).build();
-		Course course2 = Course.builder().title("ML").credit(12).build();
-		Course course3 = Course.builder().title("Java").credit(12).build();
-		
-		// save courses
-		courseRepository.saveAll(Arrays.asList(course1, course2, course3));
+//		// create three courses
+//		Course course1 = Course.builder().title("AI").credit(12).build();
+//		Course course2 = Course.builder().title("ML").credit(12).build();
+//		Course course3 = Course.builder().title("Java").credit(12).build();
+//		
+//		// save courses
+//		courseRepository.saveAll(Arrays.asList(course1, course2, course3));
+//
+//		// create a student
+//        Student student = Student.builder().name("Jhon dank").build();
+//        Student student2 = Student.builder().name("Amit Chavda").build();
+//        Student student3 = Student.builder().name("Parth Chavda").build();
+//
+//        // add courses to the student
+//        student.getCourses().addAll(Arrays.asList(course1, course2, course3));
+//        student2.getCourses().addAll(Arrays.asList(course1, course2, course3));
+//        student3.getCourses().addAll(Arrays.asList(course1, course2, course3));
+//
+//        // update the student
+//        studentRepository.save(student);
+//        studentRepository.save(student2);
+//        studentRepository.save(student3);
+        
+        
+        // try reverse like: create student first the create courses
 
 		// create a student
         Student student = Student.builder().name("Jhon dank").build();
         Student student2 = Student.builder().name("Amit Chavda").build();
         Student student3 = Student.builder().name("Parth Chavda").build();
 
-        // add courses to the student
-        student.getCourses().addAll(Arrays.asList(course1, course2, course3));
-        student2.getCourses().addAll(Arrays.asList(course1, course2, course3));
-        student3.getCourses().addAll(Arrays.asList(course1, course2, course3));
+        studentRepository.saveAll(Arrays.asList(student, student2, student3));
 
-        // update the student
-        studentRepository.save(student);
-        studentRepository.save(student2);
-        studentRepository.save(student3);
+//		create three courses
+        Course course1 = Course.builder().title("AI").credit(12).build();
+        Course course2 = Course.builder().title("ML").credit(12).build();
+        Course course3 = Course.builder().title("Java").credit(12).build();
+        
+        // save courses
+        courseRepository.saveAll(Arrays.asList(course1, course2, course3));
+
+        // add courses to the student
+        student.getCourses().addAll(Arrays.asList(course1, course2));
+        student2.getCourses().addAll(Arrays.asList(course1, course2, course3));
+        student3.getCourses().addAll(Arrays.asList(course1, course3));
+        
+        studentRepository.saveAll(Arrays.asList(student, student2, student3));
 	}
 }

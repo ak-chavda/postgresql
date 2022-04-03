@@ -1,7 +1,6 @@
 package com.example.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -48,6 +48,7 @@ public class Review implements Serializable {
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "item_id", referencedColumnName = "id")
+	@JsonIgnore // ignore | otherwise recursively items records will fetch
 	private Item item;
 
 	public Review(Double rating, String comment) {

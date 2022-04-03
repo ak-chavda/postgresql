@@ -49,7 +49,7 @@ public class User implements Serializable {
 	@JsonProperty("last_name")
 	private String lastName;
 
-	@Column(name = "email_id", unique = true)
+	@Column(name = "email_id") //, unique = true) commenting for now to enter duplicate entry in table
 	@JsonProperty("email_id")
 	private String emailId;
 

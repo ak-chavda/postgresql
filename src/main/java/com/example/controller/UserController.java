@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,14 @@ public class UserController {
 	public ResponseEntity<?> getUserItemById(@PathVariable(value = "userid") Long userId, @PathVariable(value = "itemid") Long itemId) throws ResourceNotFoundException {
 		Item item = itemRepository.findItemByItemIdAndUserId(userId, itemId).orElseThrow(() -> new ResourceNotFoundException("Item: " + itemId + " not found for user: " + userId));
 
+		return ResponseEntity.ok().body(item);
+	}
+
+	// fetch all items associated with particular user
+	@GetMapping("/users/{userid}/items")
+	public ResponseEntity<?> getUserItemById(@PathVariable(value = "userid") Long userId) throws ResourceNotFoundException {
+		List<Item> item = itemRepository.findItemsByUserId(userId).orElseThrow(() -> new ResourceNotFoundException("Items not found for user: " + userId));
+		
 		return ResponseEntity.ok().body(item);
 	}
 
