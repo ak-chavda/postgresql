@@ -11,5 +11,5 @@ RUN mvn -f /home/app/pom.xml clean package -Dskiptests=true
 #
 FROM openjdk:8-jdk-alpine
 RUN CREATE DATABASE "postgrestest"
-COPY --from=build /home/app/target/postgresql-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /home/app/target/springboot-postgresql-jpa-hibernate-crud.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
