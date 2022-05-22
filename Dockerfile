@@ -10,6 +10,6 @@ RUN mvn -f /home/app/pom.xml clean package -Dskiptests=true
 # Package stage
 #
 FROM openjdk:8-jdk-alpine
-RUN CREATE DATABASE "postgrestest"
+#RUN CREATE DATABASE "ecomerce"
 COPY --from=build /home/app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
