@@ -10,5 +10,5 @@
 # Package stage
 #
 FROM openjdk:8-jdk-alpine
-COPY --from=build /home/app/target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+#COPY *.jar app.jar
+ENTRYPOINT ["java", "-jar", "springboot-postgresql-jpa-hibernate-crud.jar"]
