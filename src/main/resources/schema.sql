@@ -1,1 +1,1 @@
-CREATE DATABASE "ecomerce";
+CREATE DATABASE "testdb";
